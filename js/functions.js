@@ -17,12 +17,7 @@ isPalindrome('Лёша на полке клопа нашёл ');
 Если в строке нет ни одной цифры, функция должна вернуть NaN.
 Предусмотрен случай с числами, в том числе float. */
 
-const extractNumbers = (string) =>{
-  if(String(string).match(/\d/g) !== null){
-    return String(string).match(/\d/g).join('');
-  }
-  return NaN;
-};
+const extractNumbers = (string) => String(string).match(/\d/g) !== null ? Number(String(string).match(/\d/g).join('')) : NaN;
 
 extractNumbers('2023 год');
 extractNumbers('ECMAScript 2022');
