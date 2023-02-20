@@ -6,28 +6,22 @@ checkLength('Волан де Морт', 15);
 checkLength('Петров Пётр Петрович', 12);
 
 //Функция для проверки, является ли строка палиндромом.
-const isPolindrome = (string) =>string.toLowerCase().replaceAll(' ', '').split('').reverse().join('') === string.toLowerCase().replaceAll(' ', '');
+const isPalindrome = (string) =>string.toLowerCase().replaceAll(' ', '').split('').reverse().join('') === string.toLowerCase().replaceAll(' ', '');
 
-isPolindrome('топот');
-isPolindrome('ДовОд');
-isPolindrome('Кекс');
-isPolindrome('Лёша на полке клопа нашёл ');
+isPalindrome('топот');
+isPalindrome('ДовОд');
+isPalindrome('Кекс');
+isPalindrome('Лёша на полке клопа нашёл ');
 
 /*Функция, которая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа.
 Если в строке нет ни одной цифры, функция должна вернуть NaN.
 Предусмотрен случай с числами, в том числе float. */
 
-const extractNumbers = (string) => {
-  if(typeof string === 'number'){
-    return string >= 0 ? +string.toString().replace('.','') : +(-string.toString().replace('.','')) ;
+const extractNumbers = (string) =>{
+  if(String(string).match(/\d/g) !== null){
+    return String(string).match(/\d/g).join('');
   }
-  let extractedNum = '';
-  for(let i = 0; i < string.length; i++){
-    if (string[i] >= 0 && string[i] <= 9){
-      extractedNum += string[i];
-    }
-  }
-  return parseInt(extractedNum.replaceAll(' ', ''), 10);
+  return NaN;
 };
 
 extractNumbers('2023 год');
@@ -37,6 +31,7 @@ extractNumbers('а я томат');
 extractNumbers(2023);
 extractNumbers(-1);
 extractNumbers(1.5);
+
 
 /* Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами
 и возвращает исходную строку, дополненную указанными символами до заданной длины. Символы добавляются в начало строки.
