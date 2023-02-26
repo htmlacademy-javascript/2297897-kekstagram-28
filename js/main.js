@@ -31,7 +31,7 @@ const getRandomInt = (min, max) => {
 
 //Функция, по получению уникального числа
 
-function getUniqueInteger (min, max){
+const getUniqueInteger = (min, max) => {
   const previousGenerated = [];
   return function (){
     let currentInteger = getRandomInt(min, max);
@@ -41,26 +41,24 @@ function getUniqueInteger (min, max){
     previousGenerated.push(currentInteger);
     return currentInteger;
   };
-}
+};
 
 const getUniqueId = getUniqueInteger(1, 25);
 
 //Функция получения индекса аватара
 
-function getAvatarUrl (min, max){
-  const avatarIndex = String(getRandomInt(min, max));
+const getAvatarUrl = () => {
+  const avatarIndex = String(getRandomInt(1, 6));
   return `img/avatar-${avatarIndex}.url`;
-}
+};
 
 //Функция создания объекта
 
-function getPhotoInfo (){
-  return{
-    id: getUniqueId(),
-    avatar: getAvatarUrl(1, 6),
-    message: COMMENTS[getRandomInt(0, COMMENTS.length - 1)],
-    name: NAMES[getRandomInt(0, NAMES.length - 1)],
-  };
-}
+const getPhotoInfo = () =>({
+  id: getUniqueId(),
+  avatar: getAvatarUrl(),
+  message: COMMENTS[getRandomInt(0, COMMENTS.length - 1)],
+  name: NAMES[getRandomInt(0, NAMES.length - 1)],
+});
 
 Array.from({length: 25}, getPhotoInfo);
