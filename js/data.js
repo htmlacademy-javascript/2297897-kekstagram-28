@@ -28,7 +28,7 @@ const getUniqueId = getUniqueInteger();
 
 const getPhotoInfo = () =>({
   id: getUniqueId(),
-  avatar: `img/avatar-${String(getRandomInt(1, 6))}.url`,
+  avatar: `img/avatar-${getRandomInt(1, 6)}.url`,
   message: COMMENTS[getRandomInt(0, COMMENTS.length - 1)],
   name: NAMES[getRandomInt(0, NAMES.length - 1)],
 });
