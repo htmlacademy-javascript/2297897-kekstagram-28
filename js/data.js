@@ -1,4 +1,6 @@
-import {getUniqueInteger, getRandomInt} from './util.js';
+import {getOrdinalInteger, getRandomInt} from './util.js';
+
+const AMOUNT_OF_PHOTOS = 25;
 
 const NAMES = [
   'Антон',
@@ -24,7 +26,7 @@ const COMMENTS = [
 
 //Функция создания объекта
 
-const getUniqueId = getUniqueInteger();
+const getUniqueId = getOrdinalInteger();
 
 const getPhotoInfo = () =>({
   id: getUniqueId(),
@@ -33,6 +35,6 @@ const getPhotoInfo = () =>({
   name: NAMES[getRandomInt(0, NAMES.length - 1)],
 });
 
-const getPhotoInfoList = () => Array.from({length: 25}, getPhotoInfo);
+const getPhotoInfoList = () => Array.from({length: AMOUNT_OF_PHOTOS}, getPhotoInfo);
 
 export{getPhotoInfoList};

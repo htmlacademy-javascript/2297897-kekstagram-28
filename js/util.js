@@ -58,14 +58,14 @@ const getRandomInt = (min, max) => {
   return Math.floor(result);
 };
 
-//Функция, по получению уникального числа
+//Функция по получению порядкового целого числа
 
-const getUniqueInteger = () => {
-  let currentId = 0;
+const getOrdinalInteger = () => {
+  let currentInteger = 0;
   return function (){
-    currentId++;
-    return currentId;
+    currentInteger++;
+    return currentInteger;
   };
 };
 
-export {getRandomInt, getUniqueInteger};
+export {getRandomInt, getOrdinalInteger};
