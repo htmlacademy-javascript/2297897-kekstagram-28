@@ -47,3 +47,25 @@ getModifiedString('1', 4, '0');
 getModifiedString('q', 4, 'werty');
 getModifiedString('q', 4, 'we');
 getModifiedString('qwerty', 4, '0');
+
+//Функция по получению целого рандомного числа
+
+const getRandomInt = (min, max) => {
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+
+  return Math.floor(result);
+};
+
+//Функция по получению порядкового целого числа
+
+const getOrdinalInteger = () => {
+  let currentInteger = 0;
+  return function (){
+    currentInteger++;
+    return currentInteger;
+  };
+};
+
+export {getRandomInt, getOrdinalInteger};
