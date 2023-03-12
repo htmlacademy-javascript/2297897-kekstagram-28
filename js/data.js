@@ -33,11 +33,7 @@ const DESCRIPTIONS = [
   'Еще один прекрасный день, испорченный обязанностями.',
 ];
 
-//Функция подбора комментария
-
-const commentPicker = () => COMMENTS[getRandomInt(0, COMMENTS.length - 1)];
-
-//Функция создания объекта
+const getComment = () => COMMENTS[getRandomInt(0, COMMENTS.length - 1)];
 
 const getUniqueId = getOrdinalInteger();
 const getUniqueUrl = getOrdinalInteger();
@@ -47,7 +43,7 @@ const getPhotoInfo = () =>({
   url: `photos/${getUniqueUrl()}.jpg`,
   description: DESCRIPTIONS[getRandomInt(0, DESCRIPTIONS.length - 1)],
   avatar: `img/avatar-${getRandomInt(1, 6)}.url`,
-  comments: Array.from({length:getRandomInt(1, MAX_COMMENTS_COUNT)}, commentPicker),
+  comments: Array.from({length:getRandomInt(1, MAX_COMMENTS_COUNT)}, getComment),
   name: NAMES[getRandomInt(0, NAMES.length - 1)],
   likes: getRandomInt(MIN_LIKES_COUNT, MAX_LIKES_COUNT),
 });
