@@ -1,4 +1,3 @@
 import './data.js';
-import {getPhotoInfoList} from './data.js';
+import './thumbnail-render.js';
 
-getPhotoInfoList();
