@@ -2,9 +2,12 @@ import {photoInfoList} from './data.js';
 
 const COMMENTS_TO_VIEW = 5;
 const bigPicture = document.querySelector('.big-picture');
+const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
+const bigPictureLikes = bigPicture.querySelector('.likes-count');
+const bigPictureDescription = bigPicture.querySelector('.social__caption');
 const commentsLoader = document.querySelector('.social__comments-loader.comments-loader');
 const commentsCount = document.querySelector('.social__comment-count');
-const body = document.body;
+const bodyElement = document.body;
 const picturesContainer = document.querySelector('.pictures');
 const closePictureButton = document.querySelector('.big-picture__cancel');
 const commentsContainer = document.querySelector('.social__comments');
@@ -13,7 +16,7 @@ let comments;
 
 const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
-  body.classList.remove('modal-open');
+  bodyElement.classList.remove('modal-open');
   commentsShown = 0;
   comments = [];
 };
@@ -45,6 +48,7 @@ const renderComments = () => {
   if(commentsShown >= comments.length){
     commentsLoader.classList.add('hidden');
     commentsShown = comments.length;
+    commentsLoader.removeEventListener('click', onCommentsLoaderClick);
   } else {
     commentsLoader.classList.remove('hidden');
   }
@@ -60,20 +64,18 @@ const renderComments = () => {
 
 const onCommentsLoaderClick = () => renderComments();
 
-commentsLoader.addEventListener('click', onCommentsLoaderClick);
-
 const renderPictureDetails = ({url, description, likes}) => {
-  bigPicture.querySelector('.big-picture__img img').src = url;
-  bigPicture.querySelector('.big-picture__img img').alt = description;
-  bigPicture.querySelector('.likes-count').textContent = likes;
-  bigPicture.querySelector('.social__caption').textContent = description;
+  bigPictureImg.src = url;
+  bigPictureImg.alt = description;
+  bigPictureLikes.textContent = likes;
+  bigPictureDescription.textContent = description;
 };
 
 const showBigPicture = (data) => {
   bigPicture.classList.remove('hidden');
-  body.classList.add('modal-open');
+  bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
-
+  commentsLoader.addEventListener('click', onCommentsLoaderClick);
   renderPictureDetails(data);
 };
 
@@ -85,7 +87,7 @@ const renderBigPicture = () => {
       return;
     }
     const picture = photoInfoList.find(
-      (item) => item.id === +thumbnail.dataset.thumbnailId
+      (item) => item.id === Number(thumbnail.dataset.thumbnailId)
     );
     comments = Array.from(picture.comments);
     showBigPicture(picture);
