@@ -42,7 +42,7 @@ const createComment = ({avatar, name, message}) =>{
   return comment;
 };
 
-function renderComments () {
+const renderComments = () => {
   commentsShown += COMMENTS_TO_VIEW;
 
   if(commentsShown >= comments.length){
@@ -60,7 +60,7 @@ function renderComments () {
   commentsContainer.innerHTML = '';
   commentsContainer.append(fragment);
   commentsCount.innerHTML = `${commentsShown} из <span class="comments-count">${comments.length}</span> комментариев`;
-}
+};
 
 function onCommentsLoaderClick () {
   renderComments();
