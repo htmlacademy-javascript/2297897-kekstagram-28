@@ -42,7 +42,7 @@ const createComment = ({avatar, name, message}) =>{
   return comment;
 };
 
-const renderComments = () => {
+function renderComments () {
   commentsShown += COMMENTS_TO_VIEW;
 
   if(commentsShown >= comments.length){
@@ -60,9 +60,11 @@ const renderComments = () => {
   commentsContainer.innerHTML = '';
   commentsContainer.append(fragment);
   commentsCount.innerHTML = `${commentsShown} из <span class="comments-count">${comments.length}</span> комментариев`;
-};
+}
 
-const onCommentsLoaderClick = () => renderComments();
+function onCommentsLoaderClick () {
+  renderComments();
+}
 
 const renderPictureDetails = ({url, description, likes}) => {
   bigPictureImg.src = url;
