@@ -1,4 +1,4 @@
-import {getOrdinalInteger, getRandomInt} from './util.js';
+import {getOrdinalInteger, getRandomInt, getRandomArrayElement} from './util.js';
 
 const AMOUNT_OF_PHOTOS = 25;
 const MIN_LIKES_COUNT = 15;
@@ -33,21 +33,29 @@ const DESCRIPTIONS = [
   'Еще один прекрасный день, испорченный обязанностями.',
 ];
 
-const getComment = () => COMMENTS[getRandomInt(0, COMMENTS.length - 1)];
+const getCommentId = getOrdinalInteger();
+const getPhotoId = getOrdinalInteger();
+const getPhotoNum = getOrdinalInteger();
 
-const getUniqueId = getOrdinalInteger();
-const getUniqueUrl = getOrdinalInteger();
+const getComment = () => ({
+  id: getCommentId(),
+  avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
+  message: getRandomArrayElement(COMMENTS),
+  name: getRandomArrayElement(NAMES),
+});
 
 const getPhotoInfo = () =>({
-  id: getUniqueId(),
-  url: `photos/${getUniqueUrl()}.jpg`,
-  description: DESCRIPTIONS[getRandomInt(0, DESCRIPTIONS.length - 1)],
-  avatar: `img/avatar-${getRandomInt(1, 6)}.url`,
-  comments: Array.from({length:getRandomInt(1, MAX_COMMENTS_COUNT)}, getComment),
-  name: NAMES[getRandomInt(0, NAMES.length - 1)],
+  id: getPhotoId(),
+  url: `photos/${getPhotoNum()}.jpg`,
+  description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInt(MIN_LIKES_COUNT, MAX_LIKES_COUNT),
+  comments: Array.from(
+    {length:getRandomInt(1, MAX_COMMENTS_COUNT)}, getComment
+  ),
 });
 
 const getPhotoInfoList = () => Array.from({length: AMOUNT_OF_PHOTOS}, getPhotoInfo);
 
-export{getPhotoInfoList};
+const photoInfoList = getPhotoInfoList();
+
+export{photoInfoList};
