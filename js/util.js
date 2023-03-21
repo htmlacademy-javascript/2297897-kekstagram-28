@@ -68,4 +68,6 @@ const getOrdinalInteger = () => {
   };
 };
 
-export {getRandomInt, getOrdinalInteger};
+const getRandomArrayElement = (array) =>array[getRandomInt(0, array.length - 1)];
+
+export {getRandomInt, getOrdinalInteger, getRandomArrayElement};
