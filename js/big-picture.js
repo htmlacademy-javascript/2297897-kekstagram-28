@@ -84,11 +84,11 @@ const showBigPicture = (data) => {
 
 const renderBigPicture = () => {
   picturesContainer.addEventListener('click', (evt) => {
-    evt.preventDefault();
     const thumbnail = evt.target.closest('[data-thumbnail-id]');
     if(!thumbnail){
       return;
     }
+    evt.preventDefault();
     const picture = photoInfoList.find(
       (item) => item.id === Number(thumbnail.dataset.thumbnailId)
     );
