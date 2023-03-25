@@ -63,6 +63,7 @@ const renderComments = () => {
 };
 
 function onCommentsLoaderClick () {
+  /* Для поднятия */
   renderComments();
 }
 
