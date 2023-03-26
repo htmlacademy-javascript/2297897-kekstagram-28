@@ -1,4 +1,5 @@
 import { addRescaleListeners, deleteRescaleListeners, resetScale } from './scale.js';
+import { resetEffects } from './effects.js';
 
 const MAX_TAGS_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}/i;
@@ -46,6 +47,7 @@ function hideModal () {
   uploadOverlay.removeEventListener('input', disableSendButton);
   deleteRescaleListeners();
   resetScale();
+  resetEffects();
 }
 
 uploadButton.addEventListener('change', openModal);
