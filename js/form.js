@@ -1,4 +1,5 @@
 import { addRescaleListeners, deleteRescaleListeners, resetScale } from './scale.js';
+import { resetEffects } from './effects.js';
 
 const MAX_TAGS_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -49,9 +50,10 @@ function hideModal () {
   document.removeEventListener('keydown', onDocumentKeydown);
   closeOverlayButton.removeEventListener('click', hideModal);
   hashtagsField.removeEventListener('input', disableSendButton);
+  pristine.reset();
   deleteRescaleListeners();
   resetScale();
-  pristine.reset();
+  resetEffects();
 }
 
 const isValidTagsCount = (tags) => tags.length <= MAX_TAGS_COUNT;
