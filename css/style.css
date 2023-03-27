@@ -1408,3 +1408,10 @@ main {
 .hidden {
   display: none;
 }
+
+.img-upload__field-wrapper__error {
+  display: flex;
+  font-weight: bold;
+  color: #fce454;
+  justify-content: center;
+}

@@ -17,15 +17,17 @@ let comments;
 const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
+  document.addEventListener('keydown', onDocumentKeydown);
   commentsShown = 0;
   comments = [];
 };
 
-const onDocumentKeydown = (evt) => {
+function onDocumentKeydown (evt) {
+  /* Для поднятия */
   if(evt.key === 'Escape'){
     closeBigPicture();
   }
-};
+}
 
 const onCloseButton = (evt) => {
   evt.preventDefault();
@@ -63,6 +65,7 @@ const renderComments = () => {
 };
 
 function onCommentsLoaderClick () {
+  /* Для поднятия */
   renderComments();
 }
 
@@ -83,11 +86,11 @@ const showBigPicture = (data) => {
 
 const renderBigPicture = () => {
   picturesContainer.addEventListener('click', (evt) => {
-    evt.preventDefault();
     const thumbnail = evt.target.closest('[data-thumbnail-id]');
     if(!thumbnail){
       return;
     }
+    evt.preventDefault();
     const picture = photoInfoList.find(
       (item) => item.id === Number(thumbnail.dataset.thumbnailId)
     );
