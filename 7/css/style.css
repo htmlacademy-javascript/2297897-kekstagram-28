@@ -1411,11 +1411,7 @@ main {
 
 .img-upload__field-wrapper__error {
   display: flex;
-  background-color: #f32323;
+  font-weight: bold;
+  color: #fce454;
   justify-content: center;
-  padding: 5px;
-  border-radius: 20px;
-  width: fit-content;
-  margin: 0 auto;
-  margin-bottom: 5px;
 }
