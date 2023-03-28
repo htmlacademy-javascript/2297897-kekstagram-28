@@ -45,4 +45,4 @@ const resetScale = () => {
   scaleImage(currentScaleValue);
 };
 
-export{addRescaleListeners, deleteRescaleListeners, resetScale};
+export{addRescaleListeners, deleteRescaleListeners, resetScale, imagePreview};
