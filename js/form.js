@@ -1,5 +1,7 @@
 import { addRescaleListeners, deleteRescaleListeners, resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
+import { sendData } from './api.js';
+import {showSuccessMessage, showErrorMessage } from './messages.js';
 
 const MAX_TAGS_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -54,6 +56,7 @@ function hideModal () {
   deleteRescaleListeners();
   resetScale();
   resetEffects();
+  uploadForm.reset();
 }
 
 const isValidTagsCount = (tags) => tags.length <= MAX_TAGS_COUNT;
@@ -76,8 +79,16 @@ pristine.addValidator(
   ERROR_TAGS_MESSAGE
 );
 
-uploadButton.addEventListener('change', openModal);
-sendFormButton.addEventListener('input', (evt) => {
+uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  pristine.validate();
+  const isValid = pristine.validate();
+  if (isValid) {
+    const formData = new FormData(evt.target);
+    sendData(showSuccessMessage, showErrorMessage, formData);
+  }
 });
+
+
+uploadButton.addEventListener('change', openModal);
+
+export { hideModal, onDocumentKeydown };
