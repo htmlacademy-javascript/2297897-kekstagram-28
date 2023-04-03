@@ -1,23 +1,20 @@
 import { showAlert } from './messages.js';
 
-const baseUrl = 'https://28.javascript.pages.academy/kekstagram';
-const dataUrl = '/data';
+const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
+const DATA_URL = '/data';
 
-const getData = (onSuccess) => {
-  fetch(`${baseUrl}${dataUrl}`)
-    .then((response) =>{
-      if(!response.ok){
-        showAlert('Произошла ошибка при запросе к серверу...');
-      }
-      return response;
-    })
-    .then((response) => response.json())
-    .then((data) => onSuccess(data))
-    .catch(() => showAlert('Произошла ошибка при запросе к серверу...'));
+const getData = async () => {
+  const response = await fetch(`${BASE_URL}${DATA_URL}`);
+  if(!response.ok){
+    showAlert(`Произошла ошибке при запросе к серверу: ${response.status}`);
+    return;
+  }
+  const data = await response.json();
+  return data;
 };
 
 const sendData = (onSuccess, onFail, body) => {
-  fetch(`${baseUrl}`, {
+  fetch(`${BASE_URL}`, {
     method: 'POST',
     body,
   })
