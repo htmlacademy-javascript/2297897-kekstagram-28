@@ -1,5 +1,3 @@
-import {photoInfoList} from './data.js';
-
 const COMMENTS_TO_VIEW = 5;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
@@ -84,14 +82,14 @@ const showBigPicture = (data) => {
   renderPictureDetails(data);
 };
 
-const renderBigPicture = () => {
+const renderBigPicture = (data) => {
   picturesContainer.addEventListener('click', (evt) => {
     const thumbnail = evt.target.closest('[data-thumbnail-id]');
     if(!thumbnail){
       return;
     }
     evt.preventDefault();
-    const picture = photoInfoList.find(
+    const picture = data.find(
       (item) => item.id === Number(thumbnail.dataset.thumbnailId)
     );
     comments = Array.from(picture.comments);
@@ -102,4 +100,4 @@ const renderBigPicture = () => {
 
 closePictureButton.addEventListener('click', onCloseButton);
 
-renderBigPicture();
+export {renderBigPicture};
