@@ -1,3 +1,5 @@
+import { isEscPressed } from './utils.js';
+
 const COMMENTS_TO_VIEW = 5;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
@@ -20,9 +22,9 @@ const closeBigPicture = () => {
   comments = [];
 };
 
-function onDocumentKeydown (evt) {
+function onDocumentKeydown () {
   /* Для поднятия */
-  if(evt.key === 'Escape'){
+  if(isEscPressed){
     closeBigPicture();
   }
 }

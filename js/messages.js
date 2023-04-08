@@ -1,3 +1,4 @@
+import { isEscPressed } from './utils.js';
 import { hideModal, onDocumentKeydown } from './form.js';
 
 const ALERT_SHOW_TIME = 5000;
@@ -5,59 +6,87 @@ const ALERT_SHOW_TIME = 5000;
 const bodyElement = document.body;
 
 const successMessageTemplate = document.querySelector('#success').content;
-const newSuccessMessage = successMessageTemplate.cloneNode(true);
-const successButton = newSuccessMessage.querySelector('.success__button');
+const successMessage = successMessageTemplate.cloneNode(true);
+const successButton = successMessage.querySelector('.success__button');
 
 const errorMessageTemplate = document.querySelector('#error').content;
-const newErrorMessage = errorMessageTemplate.cloneNode(true);
-const errorButton = newErrorMessage.querySelector('.error__button');
+const errorMessage = errorMessageTemplate.cloneNode(true);
+const errorButton = errorMessage.querySelector('.error__button');
 
 const createMessages = () => {
-  bodyElement.append(newSuccessMessage);
+  bodyElement.append(successMessage);
   document.querySelector('.success').classList.add('hidden');
-  bodyElement.append(newErrorMessage);
+  bodyElement.append(errorMessage);
   document.querySelector('.error').classList.add('hidden');
 };
 
-const closeSuccessMessage = () => {
-  document.querySelector('.success').classList.add('hidden');
-  successButton.removeEventListener('click', closeSuccessMessage);
+const onDocumentMessageKeydown = (type) => {
+  if (isEscPressed){
+    closeMessage(type);
+    if(type === 'success'){
+      hideModal();
+    }
+  }
+};
+
+const onDocumentSuccessKeydown = () => onDocumentMessageKeydown('success');
+const onDocumentErrorKeydown = () => onDocumentMessageKeydown('error');
+
+const onButtonClick = (type) => {
+  closeMessage(type);
+};
+
+const onErrorButtonClick = () => onButtonClick('error');
+const onSuccessButtonClick = () => {
+  onButtonClick('success');
   hideModal();
 };
 
-const showSuccessMessage = () => {
-  document.querySelector('.success').classList.remove('hidden');
-  successButton.addEventListener('click', closeSuccessMessage);
-};
-
-const onDocumentErrorKeydown = (evt) => {
-  if(evt.key === 'Escape'){
-    closeErrorMessage();
+const onSectionClick = (type) => (evt) => {
+  const sectionElement = evt.target.closest(`.${type}`);
+  if(!sectionElement){
+    return;
+  }
+  closeMessage(type);
+  if(type === 'success'){
+    hideModal();
   }
 };
 
-const onDocumentClick = (evt) => {
-  if(evt.target.classList.contains('error')){
-    closeErrorMessage();
-  }
-};
+const onSuccesSectionClick = onSectionClick('success');
+const onErrorSectionClick = onSectionClick('error');
 
-function closeErrorMessage () {
-  /* Для поднятия */
-  document.querySelector('.error').classList.add('hidden');
-  errorButton.removeEventListener('click', closeErrorMessage);
-  document.removeEventListener('keydown', onDocumentErrorKeydown);
-  document.removeEventListener('click', onDocumentClick);
-  document.addEventListener('keydown', onDocumentKeydown);
-}
-
-const showErrorMessage = () => {
-  document.querySelector('.error').classList.remove('hidden');
-  errorButton.addEventListener('click', closeErrorMessage);
-  document.addEventListener('keydown', onDocumentErrorKeydown);
-  document.addEventListener('click', onDocumentClick);
+const showMessage = (type) => {
+  document.querySelector(`.${type}`).classList.remove('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
+  if(type === 'success') {
+    successButton.addEventListener('click', onSuccessButtonClick);
+    document.addEventListener('click', onSuccesSectionClick);
+    document.addEventListener('keydown',onDocumentSuccessKeydown);
+  } else {
+    errorButton.addEventListener('click', onErrorButtonClick);
+    document.addEventListener('click', onErrorSectionClick);
+    document.addEventListener('keydown',onDocumentErrorKeydown);
+  }
 };
+
+const showSuccessMessage = () => showMessage('success');
+const showErrorMessage = () => showMessage('error');
+
+function closeMessage (type) {
+  /* Для поднятия */
+  document.querySelector(`.${type}`).classList.add('hidden');
+  document.addEventListener('keydown', onDocumentKeydown);
+  if(type === 'success') {
+    successButton.removeEventListener('click', onSuccessButtonClick);
+    document.removeEventListener('click', onSuccesSectionClick);
+    document.removeEventListener('keydown',onDocumentSuccessKeydown);
+  } else {
+    errorButton.removeEventListener('click', onErrorButtonClick);
+    document.removeEventListener('click', onErrorSectionClick);
+    document.removeEventListener('keydown',onDocumentErrorKeydown);
+  }
+}
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -84,4 +113,4 @@ const showAlert = (message) => {
 
 createMessages();
 
-export {createMessages, showSuccessMessage, showErrorMessage, showAlert};
+export {createMessages, showSuccessMessage, showErrorMessage , showAlert};
