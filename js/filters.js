@@ -1,20 +1,16 @@
-import { getRandomListElement } from './utils.js';
+import { shuffleArray } from './utils.js';
 import { data } from './gallery.js';
 import { renderThumbnails } from './thumbnail-render.js';
 import { debounce } from './utils.js';
 
-const FIRST_PICTURE_INDEX = 1;
+const RERENDER_DELAY = 500;
 const RANDOM_PHOTOS_AMOUNT = 10;
 const filtersBlock = document.querySelector('.img-filters__form');
 const filterButtons = document.querySelectorAll('.img-filters__button');
-const picturesContainer = document.querySelector('.pictures.container');
-const picturesFromContainer = picturesContainer.children;
-const RERENDER_DELAY = 500;
+const copyOfData = data.slice();
 
 const cleanPicturesFromContainer = () => {
-  for(let i = picturesFromContainer.length - 1; i > FIRST_PICTURE_INDEX; i--) {
-    picturesFromContainer[i].remove();
-  }
+  document.querySelectorAll('a.picture').forEach((picture) => picture.remove());
 };
 
 const applyDefault = () => {
@@ -22,21 +18,14 @@ const applyDefault = () => {
 };
 
 const applyRandomFilter = () => {
-  const randomPhotos = Array.from({length: RANDOM_PHOTOS_AMOUNT}, getRandomListElement(data));
+  const randomPhotos = shuffleArray(copyOfData)
+    .slice(0, RANDOM_PHOTOS_AMOUNT);
   renderThumbnails(randomPhotos);
 };
 
 const applyDiscussedFilter = () => {
-  const copyOfData = data.slice();
-
-  copyOfData.forEach(
-    (photo) => {
-      photo['commentsAmount'] = photo.comments.length;
-    }
-  );
-
   const sortedData = copyOfData.sort(
-    (photoA, photoB) => photoA['commentsAmount'] > photoB['commentsAmount']
+    (photoA, photoB) => photoA.comments.length > photoB.comments.length
       ? -1
       : 1
   );

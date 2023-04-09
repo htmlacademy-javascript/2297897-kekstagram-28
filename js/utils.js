@@ -1,21 +1,12 @@
-const getRandomInt = (min, max) => {
-  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
-  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
-  const result = Math.random() * (upper - lower + 1) + lower;
+const shuffleArray = (array) => {
+  for(let i = array.length - 1; i > 0; i--){
+    const current = array[i];
+    const random = Math.floor(Math.random() * (i + 1));
 
-  return Math.floor(result);
-};
-
-const getRandomListElement = (array) =>{
-  const previousElements = [];
-  return () => {
-    let currentElement = array[getRandomInt(0, array.length - 1)];
-    while (previousElements.includes(currentElement)) {
-      currentElement = array[getRandomInt(0, array.length - 1)];
-    }
-    previousElements.push(currentElement);
-    return currentElement;
-  };
+    array[i] = array[random];
+    array[random] = current;
+  }
+  return array;
 };
 
 function debounce (callback, timeoutDelay = 500) {
@@ -27,4 +18,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export { getRandomListElement, debounce };
+export { shuffleArray, debounce };
