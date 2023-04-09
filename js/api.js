@@ -14,7 +14,7 @@ const getData = async () => {
 };
 
 const sendData = (onSuccess, onFail, body) => {
-  fetch(`${BASE_URL}11`, {
+  fetch(`${BASE_URL}`, {
     method: 'POST',
     body,
   })
