@@ -17,6 +17,7 @@ const renderThumbnails = (data) => {
   });
 
   picturesContainer.append(pictureListFragment);
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 };
 
 export {renderThumbnails};
