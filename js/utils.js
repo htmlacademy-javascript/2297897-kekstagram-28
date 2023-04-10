@@ -18,4 +18,6 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export { shuffleArray, debounce };
+const isEscPressed = (evt) => evt.key === 'Escape';
+
+export { shuffleArray, debounce, isEscPressed };
