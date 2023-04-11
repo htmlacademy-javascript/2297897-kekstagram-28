@@ -30,8 +30,8 @@ const isTextFieldFocused = () =>
   document.activeElement === hashTagsField ||
   document.activeElement === commentField;
 
-const onDocumentKeydown = () => {
-  if(isEscPressed && !isTextFieldFocused()){
+const onDocumentKeydown = (evt) => {
+  if(isEscPressed(evt) && !isTextFieldFocused()){
     hideModal();
   }
 };
