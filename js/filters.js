@@ -1,9 +1,7 @@
 import { shuffleArray } from './utils.js';
 import { data } from './gallery.js';
-import { renderThumbnails } from './thumbnail-render.js';
-import { debounce } from './utils.js';
+import { debouncedRenderThumbnails } from './thumbnail-render.js';
 
-const RERENDER_DELAY = 500;
 const RANDOM_PHOTOS_AMOUNT = 10;
 const filtersBlock = document.querySelector('.img-filters__form');
 const filterButtons = document.querySelectorAll('.img-filters__button');
@@ -14,13 +12,13 @@ const cleanPicturesFromContainer = () => {
 };
 
 const applyDefault = () => {
-  renderThumbnails(data);
+  debouncedRenderThumbnails(data);
 };
 
 const applyRandomFilter = () => {
   const randomPhotos = shuffleArray(copyOfData)
     .slice(0, RANDOM_PHOTOS_AMOUNT);
-  renderThumbnails(randomPhotos);
+  debouncedRenderThumbnails(randomPhotos);
 };
 
 const applyDiscussedFilter = () => {
@@ -29,7 +27,7 @@ const applyDiscussedFilter = () => {
       ? -1
       : 1
   );
-  renderThumbnails(sortedData);
+  debouncedRenderThumbnails(sortedData);
 };
 
 const filtersMap = {
@@ -39,15 +37,17 @@ const filtersMap = {
 };
 
 filtersBlock.addEventListener('click', (evt) => {
-  filterButtons.forEach((button) =>{
-    button.classList.remove('img-filters__button--active');
-  });
-
   const filterButton = evt.target.closest('.img-filters__button');
   if (!filterButton){
     return;
   }
-  cleanPicturesFromContainer();
+
+  filterButtons.forEach((button) =>{
+    button.classList.remove('img-filters__button--active');
+  });
+
   filterButton.classList.add('img-filters__button--active');
-  debounce((() => filtersMap[filterButton.id]()), RERENDER_DELAY)();
+  cleanPicturesFromContainer();
+  const filterPhotos = () => filtersMap[filterButton.id]();
+  filterPhotos();
 });

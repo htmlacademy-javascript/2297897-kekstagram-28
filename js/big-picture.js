@@ -22,9 +22,9 @@ const closeBigPicture = () => {
   comments = [];
 };
 
-function onDocumentKeydown () {
+function onDocumentKeydown (evt) {
   /* Для поднятия */
-  if(isEscPressed){
+  if(isEscPressed(evt)){
     closeBigPicture();
   }
 }

@@ -20,8 +20,8 @@ const createMessages = () => {
   document.querySelector('.error').classList.add('hidden');
 };
 
-const onDocumentMessageKeydown = (type) => {
-  if (isEscPressed){
+const onDocumentMessageKeydown = (type) => (evt) => {
+  if (isEscPressed(evt)){
     closeMessage(type);
     if(type === 'success'){
       hideModal();
@@ -29,8 +29,8 @@ const onDocumentMessageKeydown = (type) => {
   }
 };
 
-const onDocumentSuccessKeydown = () => onDocumentMessageKeydown('success');
-const onDocumentErrorKeydown = () => onDocumentMessageKeydown('error');
+const onDocumentSuccessKeydown = (evt) => onDocumentMessageKeydown('success')(evt);
+const onDocumentErrorKeydown = (evt) => onDocumentMessageKeydown('error')(evt);
 
 const onButtonClick = (type) => {
   closeMessage(type);

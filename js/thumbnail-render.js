@@ -1,3 +1,6 @@
+import { debounce } from './utils.js';
+
+const RERENDER_DELAY = 500;
 const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
@@ -20,4 +23,6 @@ const renderThumbnails = (data) => {
   document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 };
 
-export {renderThumbnails};
+const debouncedRenderThumbnails = debounce(renderThumbnails, RERENDER_DELAY);
+
+export {renderThumbnails, debouncedRenderThumbnails};
