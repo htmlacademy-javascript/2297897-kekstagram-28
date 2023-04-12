@@ -43,8 +43,8 @@ const onSuccessButtonClick = () => {
 };
 
 const onSectionClick = (type) => (evt) => {
-  const sectionElement = evt.target.closest(`.${type}`);
-  if(!sectionElement){
+  const sectionElement = evt.target;
+  if (sectionElement.closest(`.${type}__inner`)) {
     return;
   }
   closeMessage(type);
